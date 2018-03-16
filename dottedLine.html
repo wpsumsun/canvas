@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body onload="draw()">
+    <canvas id="mycanvas" width="500" height="500"></canvas>
+    <script type="text/javascript">
+        var canvasPrototype = window.CanvasRenderingContext2D && CanvasRenderingContext2D.prototype;
+        canvasPrototype.dottedLine = function (x1, y1, x2, y2, interval) {
+            if (!interval) {
+                interval = 5
+            }
+            var isHorizontal = true
+            if (x1 === x2) {
+                isHorizontal = false
+            }
+            var len = isHorizontal ? x2 - x1 : y2 - y1
+            this.moveTo(x1, y1)
+            var progress = 0
+            while (progress < len) {
+                progress += interval
+                if (progress > len) { this.progress = len }
+                if (isHorizontal) {
+                    this, moveTo(x1 + progress, y1)
+                    this.arc(x1 + progress, y1, 1, 0, Math.PI * 2, true)
+                    this.fill()
+                } else {
+                    this, moveTo(x1, y1 + progress)
+                    this.arc(x1, y1 + progress, 1, 0, Math.PI * 2, true)
+                    this.fill()
+                }
+            }
+        }
+        var mycanvas = document.getElementById('mycanvas')
+        var context = mycanvas.getContext("2d")
+        context.dottedLine(10, 10, 200, 200, 20)
+    </script>
+</body>
+
+</html>
