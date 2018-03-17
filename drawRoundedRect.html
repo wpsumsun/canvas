@@ -13,16 +13,19 @@
     </style>
 </head>
 
-<body onload="draw()">
+<body>
     <canvas id="mycanvas" width="500" height="500"></canvas>
     <script type="text/javascript">
         
         var mycanvas = document.getElementById('mycanvas')
         var ctx = mycanvas.getContext("2d")
-        drawRoundedRect(ctx, 10, 10, 100, 100, 5, "fill")
-        drawRoundedRect(ctx, 200, 200, 50, 50, 15, "stroke")
+        ctx.lineWidth="10"
+        ctx.strokeStyle="red"
+        ctx.fillStyle="#3db"
+        drawRoundedRect(ctx, 10, 10, 100, 100, 5, true, true)
+        drawRoundedRect(ctx, 200, 200, 50, 50, 15, true, false)
 
-        function drawRoundedRect(ctx, x, y, width, height, r, style) {
+        function drawRoundedRect(ctx, x, y, width, height, r, stroke, fill) {
             ctx.save()
             ctx.beginPath()
             // top and top rigth corner
@@ -38,10 +41,10 @@
             // left and top left corner
             ctx.arcTo(x, y, x + r, y, r)
 
-            if (style === "stroke") {
+            if (stroke) {
                 ctx.stroke()
             }
-            if (style === "fill") {
+            if (fill) {
                 ctx.fill()
             }
             ctx.restore();
