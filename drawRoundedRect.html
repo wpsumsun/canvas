@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body onload="draw()">
+    <canvas id="mycanvas" width="500" height="500"></canvas>
+    <script type="text/javascript">
+        
+        var mycanvas = document.getElementById('mycanvas')
+        var ctx = mycanvas.getContext("2d")
+        drawRoundedRect(ctx, 10, 10, 100, 100, 5, "fill")
+        drawRoundedRect(ctx, 200, 200, 50, 50, 15, "stroke")
+
+        function drawRoundedRect(ctx, x, y, width, height, r, style) {
+            ctx.save()
+            ctx.beginPath()
+            // top and top rigth corner
+            ctx.moveTo(x + r, y)
+            ctx.arcTo(x + width, y, x + width, y + r, r)
+
+            // right and rigth bottom corner
+            ctx.arcTo(x + width, y + height, x + width - r, y + height, r)
+
+            // bottom and left bottom corner
+            ctx.arcTo(x, y + height, x, y + height - r, r)
+
+            // left and top left corner
+            ctx.arcTo(x, y, x + r, y, r)
+
+            if (style === "stroke") {
+                ctx.stroke()
+            }
+            if (style === "fill") {
+                ctx.fill()
+            }
+            ctx.restore();
+        }
+    </script>
+</body>
+
+</html>
